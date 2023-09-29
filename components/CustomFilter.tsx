@@ -4,12 +4,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Listbox, Transition } from "@headlessui/react";
 import { CustomFilterPropts } from "@/types";
-import { type } from "os";
 import { updateSearchParams } from "@/utils";
+
 const CustomFilter = ({ title, options }: CustomFilterPropts) => {
   const [selected, setSelected] = useState(options[0]);
   const router = useRouter();
-  const handleUpdateParams = (e: { type: string; value: string }) => {
+  const handleUpdateParams = (e: { title: string; value: string }) => {
     const newPathName = updateSearchParams(title, e.value.toLowerCase());
 
     router.push(newPathName);
@@ -20,8 +20,8 @@ const CustomFilter = ({ title, options }: CustomFilterPropts) => {
       <Listbox
         value={selected}
         onChange={(e) => {
-          setSelected(e);
-          handleUpdateParams(e);
+          setSelected(e); // Update the selected option in state
+          handleUpdateParams(e); // Update the URL search parameters and navigate to the new URL
         }}
       >
         <div className="relative w-fit z-10">
